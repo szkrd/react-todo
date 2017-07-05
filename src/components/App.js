@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import './App.css'
 import Add from './Add'
 import Todo from './Todo'
+import Header from './Header'
 
 const LS_KEY = 'react-todo'
 
@@ -38,12 +39,17 @@ class App extends Component {
   render () {
     const {onAdd, onFinish} = this
     const {todos} = this.state
+    const activeItemCount = todos.filter(item => !item.done).length;
+
     return (
       <div>
-        <Add onSubmit={onAdd}/>
-        <ul>
-          { todos.map((item, i) => <Todo item={item} onFinish={onFinish} key={i}/>) }
-        </ul>
+        <Header itemCount={activeItemCount}/>
+        <div className="content">
+          <Add onSubmit={onAdd}/>
+          <ul>
+            { todos.map((item, i) => <Todo item={item} onFinish={onFinish} key={i}/>) }
+          </ul>
+        </div>
       </div>
     )
   }
