@@ -1,0 +1,30 @@
+.Header {
+  display: flex;
+  flex-direction: row;
+  max-width: 500px;
+  padding: 5px;
+}
+
+.Header-title {
+  flex: 1 1 auto;
+  padding: 0;
+  margin: 0;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: normal;
+}
+
+.Header-count {
+  flex: 1 1 auto;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  font-weight: normal;
+  color: darkgrey;
+  text-align: right;
+}
+
+.Header-count em {
+  font-size: 40px;
+  color: cornflowerblue;
+}

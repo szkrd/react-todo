@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import './Add.css'
 
-const priorities = ['high', 'normal', 'low']
+const priorities = ['urgent', 'normal', 'not important']
 
 class Add extends Component {
   static propTypes = {
@@ -25,10 +26,9 @@ class Add extends Component {
   onChange (e) {
     let {name, value} = e.target
     let type = e.target.getAttribute('typeof') || 'string' // RDFa
-    value = {
-      string: () => value.trim(),
-      number: () => ~~value
-    }[type]()
+    if (type === 'number') {
+      value = ~~value;
+    }
     this.setState({
       [name]: value
     })
@@ -36,7 +36,10 @@ class Add extends Component {
 
   onSubmit (e) {
     e.preventDefault()
-    this.props.onSubmit(this.state)
+    let { state } = this;
+    this.props.onSubmit(Object.assign({...state}, {
+      text: state.text.trim()
+    }))
     this.setState(this.getDefaultState())
   }
 
@@ -45,16 +48,13 @@ class Add extends Component {
     let {text, priority} = this.state
 
     return (
-      <div>
+      <div className="Add">
         <form onSubmit={onSubmit}>
           <input type="text" value={text} name="text" typeof="string" onChange={onChange}/>
-          <label>
-            Priority:
-            <select name="priority" value={priority} typeof="number" onChange={onChange}>
-              {priorities.map((name, i) => <option value={i} key={i}>{name}</option>)}
-            </select>
-          </label>
-          <button>Add</button>
+          <select name="priority" value={priority} typeof="number" onChange={onChange}>
+            {priorities.map((name, i) => <option value={i} key={i}>{name}</option>)}
+          </select>
+          <button>+</button>
         </form>
       </div>
     )

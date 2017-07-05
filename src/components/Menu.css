@@ -1,0 +1,43 @@
+.Menu {
+  padding: 5px 0;
+  margin: 0;
+  text-align: right;
+  border-bottom: 1px dotted gray;
+}
+
+.Menu-item {
+  display: inline-block;
+}
+
+.Menu-button {
+  padding: 5px 10px 5px 10px;
+  margin: 0 5px;
+  font-size: 15px;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  background-image: linear-gradient(to bottom, #729fcf, #204a87);
+  border: 0;
+  border-radius: 5px;
+}
+
+.Menu-button:last-child {
+  margin-right: 0;
+}
+
+.Menu-button--flush {
+  background-image: linear-gradient(to bottom, #fcaf3e, #ce5c00);
+}
+
+.Menu-button--flush:hover {
+  background-image: linear-gradient(to bottom, #f57900, #fcaf3e);
+}
+
+.Menu-button--add {
+background-image: linear-gradient(to bottom, #8ae234, #4e9a06);
+}
+
+.Menu-button--add:hover {
+background-image: linear-gradient(to bottom, #73d216, #8ae234);
+}

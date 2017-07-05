@@ -1,15 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import className from 'class-name'
+import './Todo.css'
 
 function Todo (props) {
   let {onFinish, item} = props
   let {id, text, priority, done} = item
-  return <li>
-    [{id}] {text} {priority}
-    {done && 'done'}
-    <button onClick={() => onFinish(id)}>
-      done
-    </button>
+
+  let itemClassName = className({
+    Todo: true,
+    'Todo-done': done,
+    'Todo-priority': ['high', 'normal', 'low'][priority]
+  })
+
+  return <li className={itemClassName} onClick={() => onFinish(id)}>
+    <span className='Todo-checkbox'>{ done ? '☑' : '☐' }</span>
+    {text}
   </li>
 }
 

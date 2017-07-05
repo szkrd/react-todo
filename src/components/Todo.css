@@ -1,0 +1,36 @@
+.Todo {
+  position: relative;
+  display: block;
+  padding: 10px 0 10px 18px;
+  margin: 0;
+  list-style: none;
+}
+
+.Todo:hover {
+  text-decoration: line-through;
+}
+
+.Todo-checkbox {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  display: block;
+}
+
+.Todo-priority-high {
+  color: #cc0000;
+}
+
+.Todo-priority-normal {
+  color: #555753;
+}
+
+.Todo-priority-low {
+  color: #babdb6;
+}
+
+.Todo-done {
+  color: #555753;
+  text-decoration: line-through;
+  opacity: 0.3;
+}

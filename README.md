@@ -1,12 +1,15 @@
 # react todo app
 
-Simple todo app without redux.
+Simple todo app __without__ redux.
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
+##Usage
+
+1. `npm i`
+2. `npm start`
+
 ## TODO
 
-- [ ] add css, or some nifty css framework (foundation? bootstrap?)
 - [ ] tests with enzyme
-- [ ] flush finished tasks
 - [ ] proper eslint, standard cli is not that great

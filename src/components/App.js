@@ -4,16 +4,24 @@ import './App.css'
 import Add from './Add'
 import Todo from './Todo'
 import Header from './Header'
+import Menu, { actions as menuActions } from './Menu'
 
 const LS_KEY = 'react-todo'
 
+// I don't want to eject for decorator support (https://github.com/facebookincubator/create-react-app/issues/107)
 class App extends Component {
   constructor () {
     super()
-    this.state = JSON.parse(localStorage.getItem(LS_KEY) || 0) || {todos: []}
+    this.state = JSON.parse(localStorage.getItem(LS_KEY) || 0) || {
+      addComponentVisible: false,
+      todos: []
+    }
     this.lastId = this.state.todos.length
+
+    // or: mixins, decorators, whatnot
     this.onAdd = this.onAdd.bind(this)
     this.onFinish = this.onFinish.bind(this)
+    this.onMenuAction = this.onMenuAction.bind(this)
   }
 
   saveState () {
@@ -22,10 +30,11 @@ class App extends Component {
 
   onAdd (todo) {
     this.setState(prevState => ({
-      todos: [...prevState.todos, {
+      todos: [{
         ...todo,
         id: ++this.lastId
-      }]
+      }, ...prevState.todos],
+      addComponentVisible: false
     }), this.saveState)
   }
 
@@ -36,18 +45,46 @@ class App extends Component {
     }), this.saveState)
   }
 
+  // oh boy, do I need an event bus... or shall we store the ui state in redux?
+  onMenuAction (action) {
+    if (action === menuActions.FLUSH) {
+      this.flushDoneItems()
+    }
+
+    if (action === menuActions.ADD) {
+      this.setState(prevState => ({
+        addComponentVisible: !prevState.addComponentVisible
+      }), this.saveState)
+    }
+  }
+
+  flushDoneItems () {
+    this.setState(prevState => ({
+      todos: (() => prevState.todos.filter(item => !item.done))()
+    }), this.saveState)
+  }
+
   render () {
-    const {onAdd, onFinish} = this
-    const {todos} = this.state
-    const activeItemCount = todos.filter(item => !item.done).length;
+    const {onAdd, onFinish, onMenuAction} = this
+    const {todos, addComponentVisible} = this.state
+    const activeItemCount = todos.filter(item => !item.done).length
+
+    let sortedTodos = todos.concat().sort((a, b) => {
+      let pA = a.done ? 99 : a.priority
+      let pB = b.done ? 99 : b.priority
+      return pA === pB ? 0 : (pA > pB ? 1 : -1)
+    })
+
+    let doneCount = todos.filter(item => item.done).length
 
     return (
-      <div>
-        <Header itemCount={activeItemCount}/>
-        <div className="content">
-          <Add onSubmit={onAdd}/>
-          <ul>
-            { todos.map((item, i) => <Todo item={item} onFinish={onFinish} key={i}/>) }
+      <div className='App'>
+        <Header itemCount={activeItemCount} />
+        <div className='App-content'>
+          <Menu onAction={onMenuAction} showFlushButton={doneCount > 0} />
+          {addComponentVisible && <Add onSubmit={onAdd} />}
+          <ul className='App-todos'>
+            { sortedTodos.map((item, i) => <Todo item={item} onFinish={onFinish} key={i} />) }
           </ul>
         </div>
       </div>

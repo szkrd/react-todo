@@ -1,0 +1,41 @@
+.Add {
+  padding: 20px 5px 0 5px;
+}
+
+.Add input[type=text], .Add select {
+  display: inline-block;
+  height: 26px;
+  padding: 3px;
+  margin: 0 5px 0 0;
+  line-height: 20px;
+  vertical-align: middle;
+  border: 1px inset #babdb6;
+  border-radius: 3px;
+}
+
+.Add input[type=text] {
+  width: 320px;
+  font-size: 18px;
+}
+
+.Add select {
+  font-size: 13px;
+}
+
+.Add button {
+  display: inline-block;
+  padding: 5px 10px 5px 10px;
+  font-size: 15px;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: linear-gradient(to bottom, #729fcf, #204a87);
+  border: 0;
+  border-radius: 5px;
+}
+
+.Add button:hover {
+  background-image: linear-gradient(to bottom, #3465a4, #729fcf);
+}
