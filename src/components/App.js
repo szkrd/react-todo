@@ -84,7 +84,7 @@ class App extends Component {
           <Menu onAction={onMenuAction} showFlushButton={doneCount > 0} />
           {addComponentVisible && <Add onSubmit={onAdd} />}
           <ul className='App-todos'>
-            { sortedTodos.map((item, i) => <Todo item={item} onFinish={onFinish} key={i} />) }
+            { sortedTodos.map(item => <Todo item={item} onFinish={onFinish} key={item.id} />) }
           </ul>
         </div>
       </div>

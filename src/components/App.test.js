@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { shallow } from 'enzyme';
+import { shallow } from 'enzyme'
 import App from './App'
 import { actions as menuActions } from './Menu'
 
@@ -23,7 +23,7 @@ describe('App', () => {
 
   describe('saveState', () => {
     it('should save the current state into localstorage', () => {
-      const app = shallow(<App/>)
+      const app = shallow(<App />)
       const instance = app.instance()
       const state = { foo: 'bar' }
       instance.state = state
@@ -35,8 +35,8 @@ describe('App', () => {
 
   describe('onAdd', () => {
     it('should add a todo item', () => {
-      const app = shallow(<App/>)
-      const instance = app.instance();
+      const app = shallow(<App />)
+      const instance = app.instance()
       instance.saveState = jest.fn() // jest is already available
       instance.onAdd({
         text: 'foo',
@@ -53,8 +53,8 @@ describe('App', () => {
 
   describe('onFinish', () => {
     it('should mark an item as done', () => {
-      const app = shallow(<App/>)
-      const instance = app.instance();
+      const app = shallow(<App />)
+      const instance = app.instance()
       instance.saveState = jest.fn() // jest is already available
       instance.state = {
         addComponentVisible: false,
@@ -79,8 +79,8 @@ describe('App', () => {
 
   describe('onMenuAction', () => {
     it('should handle actions for the "flush" menu action', () => {
-      const app = shallow(<App/>)
-      const instance = app.instance();
+      const app = shallow(<App />)
+      const instance = app.instance()
       instance.flushDoneItems = jest.fn()
       instance.onMenuAction(menuActions.FLUSH)
 
@@ -88,8 +88,8 @@ describe('App', () => {
     })
 
     it('should show the add component when the "add" action is invoked', () => {
-      const app = shallow(<App/>)
-      const instance = app.instance();
+      const app = shallow(<App />)
+      const instance = app.instance()
       instance.onMenuAction(menuActions.ADD)
 
       expect(instance.state).toEqual({ addComponentVisible: true, todos: [] })
@@ -98,7 +98,7 @@ describe('App', () => {
 
   describe('flushDoneItems', () => {
     it('should delete items marked with the done flag', () => {
-      const app = shallow(<App/>)
+      const app = shallow(<App />)
       const instance = app.instance()
       instance.saveState = jest.fn()
       instance.state = {
@@ -122,35 +122,32 @@ describe('App', () => {
 
   describe('render', () => {
     it('should always render a menu component', () => {
-      const wrapper = shallow(<App/>)
+      const wrapper = shallow(<App />)
       const instance = wrapper.instance()
       expect(wrapper.find('Menu')).toHaveLength(1)
       expect(wrapper.find('Menu').node.props.onAction).toBe(instance.onMenuAction)
-      expect(wrapper.find('Menu').node.props.showFlushButton).toBe(false);
+      expect(wrapper.find('Menu').node.props.showFlushButton).toBe(false)
     })
 
     it('should let the menu know if the flush button needs to be shown', () => {
-      const wrapper = shallow(<App/>)
-      const instance = wrapper.instance()
+      const wrapper = shallow(<App />)
       wrapper.setState({
         todos: [
           { text: 'foo', priority: 1, id: 1, done: true },
           { text: 'bar', priority: 1, id: 2, done: true }
         ]
       })
-      expect(wrapper.find('Menu').node.props.showFlushButton).toBe(true);
+      expect(wrapper.find('Menu').node.props.showFlushButton).toBe(true)
     })
 
     it('should always render a header component', () => {
-      const wrapper = shallow(<App/>)
-      const instance = wrapper.instance()
+      const wrapper = shallow(<App />)
       expect(wrapper.find('Header')).toHaveLength(1)
       expect(wrapper.find('Header').node.props.itemCount).toEqual(0)
     })
 
     it('should let the header component know the still active item count', () => {
-      const wrapper = shallow(<App/>)
-      const instance = wrapper.instance()
+      const wrapper = shallow(<App />)
       wrapper.setState({
         todos: [
           { text: 'foo', priority: 1, id: 1, done: true }, // active
@@ -160,13 +157,33 @@ describe('App', () => {
       expect(wrapper.find('Header').node.props.itemCount).toEqual(1)
     })
 
-    it.skip('should render an add section if needed', () => {
-      // TODO
-    });
+    it('should render an add section if needed', () => {
+      const wrapper = shallow(<App />)
+      wrapper.setState({
+        addComponentVisible: false
+      })
+      expect(wrapper.find('Add')).toHaveLength(0)
+      wrapper.setState({
+        addComponentVisible: true
+      })
+      expect(wrapper.find('Add')).toHaveLength(1)
+    })
 
-    it.skip('should render multiple todo items', () => {
-      // TODO
-    });
+    it('should render multiple todo items', () => {
+      const wrapper = shallow(<App />)
+      const instance = wrapper.instance()
+      const state = {
+        todos: [
+          { text: 'foo', priority: 1, id: 1, done: false },
+          { text: 'bar', priority: 1, id: 2, done: false },
+          { text: 'baz', priority: 1, id: 3, done: false }
+        ]
+      }
+      wrapper.setState(state)
+      expect(wrapper.find('Todo')).toHaveLength(3)
+      const first = wrapper.find('Todo').nodes[0]
+      expect(first.props.item).toBe(state.todos[0])
+      expect(first.props.onFinish).toBe(instance.onFinish)
+    })
   })
 })
-

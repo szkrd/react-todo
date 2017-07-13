@@ -27,8 +27,8 @@ function Menu (props) {
 }
 
 Menu.propTypes = {
-  onAction: PropTypes.func,
-  showFlushButton: PropTypes.bool
+  onAction: PropTypes.func.isRequired,
+  showFlushButton: PropTypes.bool.isRequired
 }
 
 export default Menu

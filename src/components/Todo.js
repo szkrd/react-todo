@@ -20,13 +20,13 @@ function Todo (props) {
 }
 
 Todo.propTypes = {
-  onFinish: PropTypes.func,
+  onFinish: PropTypes.func.isRequired,
   item: PropTypes.shape({
     id: PropTypes.number,
     text: PropTypes.string,
     priority: PropTypes.number,
     done: PropTypes.bool
-  })
+  }).isRequired
 }
 
 export default Todo

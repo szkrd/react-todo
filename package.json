@@ -19,10 +19,26 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "standard --env browser",
-    "lint:fix": "standard --env browser --fix"
+    "lint": "eslint ./src",
+    "lint:fix": "eslint --fix ./src",
+    "standard": "standard --env browser --env jest",
+    "precommit": "lint-staged",
+    "prepush": "npm test"
   },
+  "lint-staged": {},
   "devDependencies": {
+    "babel-eslint": "7.2.3",
+    "eslint": "4.2.0",
+    "eslint-config-standard": "10.2.1",
+    "eslint-config-standard-jsx": "4.0.2",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-jest": "20.0.3",
+    "eslint-plugin-node": "5.1.0",
+    "eslint-plugin-promise": "3.5.0",
+    "eslint-plugin-react": "7.1.0",
+    "eslint-plugin-standard": "3.0.1",
+    "husky": "0.14.3",
+    "lint-staged": "4.0.1",
     "standard": "*"
   }
 }

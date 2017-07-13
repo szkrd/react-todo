@@ -18,7 +18,7 @@ function Header (props) {
 }
 
 Header.propTypes = {
-  itemCount: PropTypes.number
+  itemCount: PropTypes.number.isRequired
 }
 
 export default Header

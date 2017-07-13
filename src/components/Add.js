@@ -27,7 +27,7 @@ class Add extends Component {
     let {name, value} = e.target
     let type = e.target.getAttribute('typeof') || 'string' // RDFa
     if (type === 'number') {
-      value = ~~value;
+      value = ~~value
     }
     this.setState({
       [name]: value
@@ -36,7 +36,7 @@ class Add extends Component {
 
   onSubmit (e) {
     e.preventDefault()
-    let { state } = this;
+    let { state } = this
     this.props.onSubmit(Object.assign({...state}, {
       text: state.text.trim()
     }))
@@ -48,10 +48,10 @@ class Add extends Component {
     let {text, priority} = this.state
 
     return (
-      <div className="Add">
+      <div className='Add'>
         <form onSubmit={onSubmit}>
-          <input type="text" value={text} name="text" typeof="string" onChange={onChange}/>
-          <select name="priority" value={priority} typeof="number" onChange={onChange}>
+          <input type='text' value={text} name='text' typeof='string' onChange={onChange} data-test='text' />
+          <select name='priority' value={priority} typeof='number' onChange={onChange} data-test='priority'>
             {priorities.map((name, i) => <option value={i} key={i}>{name}</option>)}
           </select>
           <button>+</button>

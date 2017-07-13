@@ -7,11 +7,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Usage
 
 1. `npm i`
-2. `npm start`
+2. `npm start` for dev, `npm t` for test watcher
 
 ## TODO
 
-- [ ] tests with enzyme
-- [ ] proper eslint, standard cli is not that great
+- [x] tests with jest and enzyme
+- [x] proper eslint, standard cli has problems with experimental syntax
 - [x] create redux branch
+- [ ] update redux branch with lint, add tests
 - [ ] create mobx branch
