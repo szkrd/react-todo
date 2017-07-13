@@ -20,7 +20,7 @@ describe('App', () => {
     ReactDOM.render(<App />, div)
   })
 
-  describe.only('onAdd', () => {
+  describe('onAdd', () => {
     it('should add a todo item', () => {
       const app = shallow(<App/>)
       const instance = app.instance();
@@ -32,6 +32,31 @@ describe('App', () => {
       expect(instance.state).toEqual({
         addComponentVisible: false,
         todos: [ { text: 'foo', priority: 1, id: 1 } ]
+      })
+      expect(instance.saveState).toHaveBeenCalled()
+    })
+  })
+
+  describe.only('onFinish', () => {
+    it('should mark an item as done', () => {
+      const app = shallow(<App/>)
+      const instance = app.instance();
+      instance.saveState = jest.fn() // jest is already available
+      instance.state = {
+        addComponentVisible: false,
+        todos: [ { text: 'foo', priority: 1, id: 1 } ]
+      }
+      instance.onFinish(1)
+      expect(instance.state).toEqual({
+        addComponentVisible: false,
+        todos: [
+          {
+            text: 'foo',
+            priority: 1,
+            id: 1,
+            done: true
+          }
+        ]
       })
       expect(instance.saveState).toHaveBeenCalled()
     })
