@@ -18,16 +18,19 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "test:ci": "cross-env CI=true npm test",
+    "test:coverage": "npm test -- --coverage",
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
     "lint:fix": "eslint --fix ./src",
     "standard": "standard --env browser --env jest",
     "precommit": "lint-staged",
-    "prepush": "npm test"
+    "prepush": "npm run test:ci"
   },
   "lint-staged": {},
   "devDependencies": {
     "babel-eslint": "7.2.3",
+    "cross-env": "5.0.1",
     "eslint": "4.2.0",
     "eslint-config-standard": "10.2.1",
     "eslint-config-standard-jsx": "4.0.2",
